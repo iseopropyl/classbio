@@ -1,0 +1,22 @@
+[
+    {
+        "name": "[titlecard]",
+        "traits": ["programmer", "friendly"],
+        "bio": "A skilled backend programmer and reliable teammate."
+    },
+    {
+        "name": "[titlecard]",
+        "traits": ["artist"],
+        "bio": "Talented UI/UX designer with strong visual creativity."
+    },
+    {
+        "name": "[titlecard]",
+        "traits": ["leader", "friendly"],
+        "bio": "A natural leader who motivates the team."
+    },
+    {
+        "name": "[titlecard]",
+        "traits": ["programmer"],
+        "bio": "Focused programmer specializing in modern web dev."
+    }
+]

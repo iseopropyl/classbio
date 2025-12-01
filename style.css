@@ -1,0 +1,11 @@
+body {
+    background-color: #f7f7f7;
+}
+
+.student-card {
+    transition: 0.3s;
+}
+
+.student-card:hover {
+    transform: scale(1.05);
+}

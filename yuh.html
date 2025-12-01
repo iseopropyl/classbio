@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-MAWD 12-B</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- External Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">IT-MAWD 12-B</h1>
+
+    <!-- Filter -->
+    <div class="card p-4 mb-4">
+        <label class="form-label fw-bold">Search</label>
+        <select id="characteristicFilter" class="form-select">
+            <option value="all">Show All</option>
+            <option value="programmer">Good Programmer</option>
+            <option value="artist">Artist / Designer</option>
+            <option value="leader">Leader</option>
+            <option value="friendly">Friendly</option>
+        </select>
+    </div>
+
+    <!-- Students List -->
+    <div class="row" id="studentsContainer"></div>
+</div>
+
+<!-- Script -->
+<script>
+    $(document).ready(function () {
+
+        // Load student data from external JSON
+        $.getJSON("students.json", function (students) {
+            loadStudents(students);
+
+            $("#characteristicFilter").on("change", function () {
+                const selected = $(this).val();
+                filterStudents(selected);
+            });
+        });
+
+        function loadStudents(students) {
+            $("#studentsContainer").empty();
+
+            students.forEach(student => {
+                const traitsText = student.traits
+                    .map(t => t.charAt(0).toUpperCase() + t.slice(1))
+                    .join(", ");
+
+                const card = `
+                    <div class="col-md-4 mb-3 student-card" data-characteristic="${student.traits.join(" ")}">
+                        <div class="card p-3 shadow-sm">
+                            <h5>${student.name}</h5>
+                            <p class="text-muted">${traitsText}</p>
+                            <p>${student.bio}</p>
+                        </div>
+                    </div>
+                `;
+                $("#studentsContainer").append(card);
+            });
+        }
+
+        function filterStudents(selected) {
+            if (selected === "all") {
+                $(".student-card").show();
+                return;
+            }
+
+            $(".student-card").each(function () {
+                const traits = $(this).data("characteristic");
+                traits.includes(selected) ? $(this).show() : $(this).hide();
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
